@@ -88,6 +88,16 @@ Stack.prototype.count = function() {
 };
 // Time complexity: O(1)
 
+Stack.prototype.contains = function(value) {
+  for (let position in this.storage) {
+    if (this.storage[position] === value) {
+      return true;
+    }
+  }
+  
+  return false;
+};
+
 Stack.prototype.sort = function() {
   const sorted = {};
 
