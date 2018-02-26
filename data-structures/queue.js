@@ -49,6 +49,66 @@ What's the time complexity?
 
 
  */
+function Stack() {
+  this.storage = {};
+  this.size = 0;
+}
+
+Stack.prototype.push = function(value) {
+  this.size++;
+  this.storage[this.size] = value;
+};
+// Time complexity: O(1)
+
+Stack.prototype.pop = function() {
+  const value = this.storage[this.size];
+  
+  if (this.size > 0) {
+    delete this.storage[this.size];
+    this.size--;
+  }
+
+  return value;
+};
+// Time complexity: O(1)
+
+Stack.prototype.peek = function() {
+  return this.storage[this.size];
+};
+// Time complexity: O(1)
+
+Stack.prototype.count = function() {
+  return this.size;
+};
+// Time complexity: O(1)
+
+Stack.prototype.contains = function(value) {
+  for (let position in this.storage) {
+    if (this.storage[position] === value) {
+      return true;
+    }
+  }
+
+  return false;
+};
+// Time complexity: O(n)
+
+Stack.prototype.until = function(value) {
+  let pops = 0;
+  let found = false;
+
+  while (this.size > 0) {
+    const item = this.pop();
+    pops++;
+    if (value === item) {
+      return pops;
+    }
+  }
+
+  return pops;
+};
+// Time complexity: O(n)
+
 
 function Queue(capacity) {
   this._storage = {};
