@@ -80,14 +80,14 @@ Stack.prototype.pop = function() {
   }
 
   if (value === this._min) {
-    const sorted = this._sortStorage();
-    this._min = sorted[1];
+    const newMin = this._findMin();
+    this._min = newMin;
   }
 
   return value;
 };
 // Time complexity: O(1) without min calculation
-// Time complexity: O(n^2) with min calculation
+// Time complexity: O(n) with min calculation
 
 Stack.prototype.peek = function() {
   return this.storage[this.size];
@@ -126,7 +126,7 @@ Stack.prototype.until = function(value) {
 };
 // Time complexity: O(n)
 
-Stack.prototype._sortStorage = function() {
+Stack.prototype.sort = function() {
   const sorted = {};
 
   const insert = (value) => {
@@ -156,17 +156,29 @@ Stack.prototype._sortStorage = function() {
     const value = this.storage[position];
     insert(value);
   }
-  
-  return sorted;
-};
 
-Stack.prototype.sort = function() {
-  this.storage = this._sortStorage();
+  this.storage = sorted;
 };
+// Time complexity: O(n^2)
+
+Stack.prototype._findMin = function() {
+  let min;
+
+  for (let position in this.storage) {
+    const value = this.storage[position];
+    if (!min || value < min) {
+      min = value;
+    }
+  }
+
+  return min;
+};
+// Time complexity: O(n)
 
 Stack.prototype.min = function() {
   return this._min;
 };
+// Time complexity: O(1)
 
 /*
 *** Exercises:
