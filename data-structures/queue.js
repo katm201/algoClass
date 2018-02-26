@@ -117,7 +117,11 @@ function Queue(capacity) {
 }
 
 Queue.prototype.enqueue = function(value) {
-  this._stack1.push(value);
+  if (this.count() < this._capacity) {
+    this._stack1.push(value);
+  } else {
+    return 'Max capacity already reached. Remove element before adding a new one.';
+  }
 };
 // Time complexity: O(1)
 
