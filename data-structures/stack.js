@@ -53,11 +53,16 @@ What's the time complexity?
 function Stack(capacity) {
   this.storage = {};
   this.size = 0;
+  this.capacity = capacity;
 }
 
 Stack.prototype.push = function(value) {
-  this.size++;
-  this.storage[this.size] = value;
+  if (this.size < this.capacity) {
+    this.size++;
+    this.storage[this.size] = value;
+  } else {
+    return 'Max capacity already reached. Remove element before adding a new one.';
+  }
 };
 // Time complexity: O(1)
 
