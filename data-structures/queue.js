@@ -152,7 +152,10 @@ Queue.prototype.count = function() {
 };
 // Time complexity: O(1)
 
-
+Queue.prototype.contains = function(value) {
+  return this._stack2.contains(value) || this._stack1.contains(value);
+};
+// Time complexity: O(n)
 
 /*
 *** Exercises:
