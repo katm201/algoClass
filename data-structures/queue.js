@@ -93,23 +93,6 @@ Stack.prototype.contains = function(value) {
 };
 // Time complexity: O(n)
 
-Stack.prototype.until = function(value) {
-  let pops = 0;
-  let found = false;
-
-  while (this.size > 0) {
-    const item = this.pop();
-    pops++;
-    if (value === item) {
-      return pops;
-    }
-  }
-
-  return pops;
-};
-// Time complexity: O(n)
-
-
 function Queue(capacity) {
   this._stack1 = new Stack();
   this._stack2 = new Stack();
@@ -154,6 +137,22 @@ Queue.prototype.count = function() {
 
 Queue.prototype.contains = function(value) {
   return this._stack2.contains(value) || this._stack1.contains(value);
+};
+// Time complexity: O(n)
+
+Queue.prototype.until = function(value) {
+  let pops = 0;
+  let found = false;
+
+  while (this.count() > 0) {
+    const item = this.dequeue();
+    pops++;
+    if (value === item) {
+      return pops;
+    }
+  }
+
+  return pops;
 };
 // Time complexity: O(n)
 
