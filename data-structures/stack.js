@@ -83,6 +83,39 @@ Stack.prototype.count = function() {
 };
 // Time complexity: O(1)
 
+Stack.prototype.sort = function() {
+  const sorted = {};
+
+  const insert = (value) => {
+    let insertPosition;
+    let position = 0;
+
+    while (!insertPosition) {
+      position++;
+      const current = sorted[position];
+      if (!current || current > value) {
+        insertPosition = position;
+      }
+    }
+
+    const positions = Object.keys(sorted);
+
+    for (let i = positions.length; i >= insertPosition; i--) {
+      const item = sorted[i];
+      sorted[i + 1] = item;
+      delete sorted[i];
+    }
+
+    sorted[insertPosition] = value;
+  };
+
+  for (let position in this.storage) {
+    const value = this.storage[position];
+    insert(value);
+  }
+
+  this.storage = sorted;
+};
 
 /*
 *** Exercises:
