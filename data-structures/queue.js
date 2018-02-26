@@ -94,49 +94,76 @@ Stack.prototype.contains = function(value) {
 // Time complexity: O(n)
 
 function Queue(capacity) {
-  this._stack1 = new Stack();
-  this._stack2 = new Stack();
+  this._leftStack = new Stack();
+  this._rightStack = new Stack();
   this._capacity = capacity;
 }
 
-Queue.prototype.enqueue = function(value) {
+// adds to the back
+Queue.prototype.enqueueRight = function(value) {
   if (this.count() < this._capacity) {
-    this._stack1.push(value);
+    this._transferLeft();
+    this._leftStack.push(value);
   } else {
     return 'Max capacity already reached. Remove element before adding a new one.';
   }
 };
-// Time complexity: O(1)
+// Time complexity: O(n)
 
-Queue.prototype.dequeue = function() {
-  this._transfer();
-  return this._stack2.pop();
+// removes from the front
+Queue.prototype.dequeueLeft = function() {
+  this._transferRight();
+  return this._rightStack.pop();
 };
 // Time complexity: O(n)
 
-Queue.prototype._transfer = function() {
-  if (this._stack2.count() === 0) {
-    while (this._stack1.count() > 0) {
-      const value = this._stack1.pop();
-      this._stack2.push(value);
-    }
+// adds to the front
+Queue.prototype.enqueueLeft = function(value) {
+  if (this.count() < this._capacity) {
+    this._transferRight();
+    this._rightStack.push(value);
+  } else {
+    return 'Max capacity already reached. Remove element before adding a new one.';
+  }
+};
+// Time complexity: O(n)
+
+// removes from the back
+Queue.prototype.dequeueLeft = function() {
+  this._transferLeft();
+  return this._leftStack.pop();
+};
+// Time complexity: O(n)
+
+Queue.prototype._transferRight = function() {
+  while (this._leftStack.count() > 0) {
+    const value = this._leftStack.pop();
+    this._rightStack.push(value);
+  }
+};
+// Time complexity: O(n)
+
+Queue.prototype._transferLeft = function() {
+  while (this._rightStack.count() > 0) {
+    const value = this._rightStack.pop();
+    this._leftStack.push(value);
   }
 };
 // Time complexity: O(n)
 
 Queue.prototype.peek = function() {
-  this._transfer();
-  return this._stack2.peek();
+  this._transferRight();
+  return this._rightStack.peek();
 };
 // Time complexity: O(n)
 
 Queue.prototype.count = function() {
-  return this._stack1.count() + this._stack2.count();
+  return this._leftStack.count() + this._rightStack.count();
 };
 // Time complexity: O(1)
 
 Queue.prototype.contains = function(value) {
-  return this._stack2.contains(value) || this._stack1.contains(value);
+  return this._rightStack.contains(value) || this._leftStack.contains(value);
 };
 // Time complexity: O(n)
 
@@ -145,7 +172,7 @@ Queue.prototype.until = function(value) {
   let found = false;
 
   while (this.count() > 0) {
-    const item = this.dequeue();
+    const item = this.dequeueLeft();
     pops++;
     if (value === item) {
       return pops;
