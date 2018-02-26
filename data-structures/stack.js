@@ -54,12 +54,17 @@ function Stack(capacity) {
   this.storage = {};
   this.size = 0;
   this.capacity = capacity;
+  this._min;
 }
 
 Stack.prototype.push = function(value) {
   if (this.size < this.capacity) {
     this.size++;
     this.storage[this.size] = value;
+
+    if (!this._min || this._min > value) {
+      this._min = value;
+    }
   } else {
     return 'Max capacity already reached. Remove element before adding a new one.';
   }
@@ -74,9 +79,15 @@ Stack.prototype.pop = function() {
     this.size--;
   }
 
+  if (value === this._min) {
+    const sorted = this._sortStorage();
+    this._min = sorted[1];
+  }
+
   return value;
 };
-// Time complexity: O(1)
+// Time complexity: O(1) without min calculation
+// Time complexity: O(n^2) with min calculation
 
 Stack.prototype.peek = function() {
   return this.storage[this.size];
@@ -115,7 +126,7 @@ Stack.prototype.until = function(value) {
 };
 // Time complexity: O(n)
 
-Stack.prototype.sort = function() {
+Stack.prototype._sortStorage = function() {
   const sorted = {};
 
   const insert = (value) => {
@@ -145,8 +156,16 @@ Stack.prototype.sort = function() {
     const value = this.storage[position];
     insert(value);
   }
+  
+  return sorted;
+};
 
-  this.storage = sorted;
+Stack.prototype.sort = function() {
+  this.storage = this._sortStorage();
+};
+
+Stack.prototype.min = function() {
+  return this._min;
 };
 
 /*
