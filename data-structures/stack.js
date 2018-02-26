@@ -94,9 +94,26 @@ Stack.prototype.contains = function(value) {
       return true;
     }
   }
-  
+
   return false;
 };
+// Time complexity: O(n)
+
+Stack.prototype.until = function(value) {
+  let pops = 0;
+  let found = false;
+
+  while (this.size > 0) {
+    const item = this.pop();
+    pops++;
+    if (value === item) {
+      return pops;
+    }
+  }
+
+  return pops;
+};
+// Time complexity: O(n)
 
 Stack.prototype.sort = function() {
   const sorted = {};
