@@ -111,37 +111,40 @@ Stack.prototype.until = function(value) {
 
 
 function Queue(capacity) {
-  this._storage = {};
+  this._stack1 = new Stack();
+  this._stack2 = new Stack();
   this._capacity = capacity;
-  this._end = 0;
-  this._start = 0;
 }
 
 Queue.prototype.enqueue = function(value) {
-  this._end++;
-  this._storage[this._end] = value;
+  this._stack1.push(value);
 };
 // Time complexity: O(1)
 
 Queue.prototype.dequeue = function() {
-  const value = this._storage[this._start + 1];
-
-  if (value) {
-    this._start++;
-    delete this._storage[this._start];
-  }
-
-  return value;
+  this._transfer();
+  return this._stack2.pop();
 };
-// Time complexity: O(1)
+// Time complexity: O(n)
+
+Queue.prototype._transfer = function() {
+  if (this._stack2.count() === 0) {
+    while (this._stack1.count() > 0) {
+      const value = this._stack1.pop();
+      this._stack2.push(value);
+    }
+  }
+};
+// Time complexity: O(n)
 
 Queue.prototype.peek = function() {
-  return this._storage[this._size];
+  this._transfer();
+  return this._stack2.peek();
 };
-// Time complexity: O(1)
+// Time complexity: O(n)
 
 Queue.prototype.count = function() {
-  return this._end - this._start;
+  return this._stack1.count() + this._stack2.count();
 };
 // Time complexity: O(1)
 
