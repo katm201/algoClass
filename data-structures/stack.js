@@ -175,6 +175,7 @@ Stack.prototype._findMin = function() {
 };
 // Time complexity: O(n)
 
+// NOTE: can implement using a min Stack
 Stack.prototype.min = function() {
   return this._min;
 };
