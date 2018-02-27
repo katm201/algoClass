@@ -58,7 +58,7 @@ function Stack(capacity) {
 }
 
 Stack.prototype.push = function(value) {
-  if (this.size < this.capacity) {
+  if (!this.capacity || this.size < this.capacity) {
     this.size++;
     this.storage[this.size] = value;
 
