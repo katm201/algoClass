@@ -33,3 +33,5 @@ function bubbleSort(array) {
       // sorted = true
   // return sorted array
 }
+
+// time complexity: O(n^2)
