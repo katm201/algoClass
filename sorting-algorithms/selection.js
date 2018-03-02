@@ -28,3 +28,17 @@ Stable Variant
 - Implement selection sort for a linked list (you can use your data structure implemention from earlier in the course). How does this impact performance and stability?
 
 */
+
+function selectionSort(array) {
+  // loop through array (i)
+    // declare smallestNum variable to keep track of the min in the unsorted portion of the array
+    // declare index variable to keep track of the index of smallestNum
+    // loop through the array, i - end (j)
+      // if current element is smaller than smallestNum
+        // reassign smallestNum to current element
+        // reassign index to j
+    // swap current variable with smallestNum
+  // return array
+}
+
+// time complexity: O(n^2)
