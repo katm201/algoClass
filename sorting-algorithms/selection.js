@@ -30,15 +30,24 @@ Stable Variant
 */
 
 function selectionSort(array) {
-  // loop through array (i)
-    // declare smallestNum variable to keep track of the min in the unsorted portion of the array
-    // declare index variable to keep track of the index of smallestNum
-    // loop through the array, i - end (j)
-      // if current element is smaller than smallestNum
-        // reassign smallestNum to current element
-        // reassign index to j
-    // swap current variable with smallestNum
-  // return array
+  for (let i = 0; i < array.length; i++) {
+    const current = array[i];
+
+    let smallest = null;
+    let index = null;
+
+    for (let j = i; j < array.length; j++) {
+      if (smallest === null || array[j] < smallest) {
+        smallest = array[j];
+        index = j;
+      }
+    }
+
+    array[i] = smallest;
+    array[index] = current;
+  }
+
+  return array;
 }
 
 // time complexity: O(n^2)
