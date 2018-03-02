@@ -21,17 +21,28 @@ Variants:
 */
 
 function bubbleSort(array) {
-  // declare sorted = false (becomes true once we cycle through the whole sort and make no changes)
-  // while array is still unsorted
-    // declare changes = false (becomes true once we swap once)
-    // loop through array
-      // compare current # and next #
-      // if current # > next #
-        // swap #s
-        // changes = true
-    // if changes is still false
-      // sorted = true
-  // return sorted array
+  let sorted = false;
+
+  while (!sorted) {
+    let changes = false;
+
+    for (let i = 1; i < array.length; i++) {
+      const previous = array[i - 1];
+      const current = array[i];
+
+      if (current < previous) {
+        array[i] = previous;
+        array[i - 1] = current;
+        changes = true;
+      }
+    }
+
+    if (!changes) {
+      sorted = true;
+    }
+  }
+  
+  return array;
 }
 
 // time complexity: O(n^2)
