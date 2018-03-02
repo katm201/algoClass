@@ -19,3 +19,17 @@ Variants:
 (https://en.wikipedia.org/wiki/Cocktail_sort)
 
 */
+
+function bubbleSort(array) {
+  // declare sorted = false (becomes true once we cycle through the whole sort and make no changes)
+  // while array is still unsorted
+    // declare changes = false (becomes true once we swap once)
+    // loop through array
+      // compare current # and next #
+      // if current # > next #
+        // swap #s
+        // changes = true
+    // if changes is still false
+      // sorted = true
+  // return sorted array
+}
